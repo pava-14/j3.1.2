@@ -1,29 +1,29 @@
 package ru.netology.radio;
 
 public class Radio {
-    private int currentRadioStation;
+    private int currentStation;
     private int currentVolume;
-    private int minRadioStation;
-    private int maxRadioStation;
+    private int minStation;
+    private int maxStation;
     private int minVolume;
     private int maxVolume;
 
 
-    public int getCurrentRadioStation() {
-        return currentRadioStation;
+    public int getCurrentStation() {
+        return currentStation;
     }
 
-    public void setCurrentRadioStation(int currentRadioStation) {
+    public void setCurrentStation(int currentStation) {
 
-        if (currentRadioStation > 9) {
-            currentRadioStation = 0;
+        if (currentStation > maxStation) {
+            currentStation = currentStation - maxStation - 1;
         }
 
-        if (currentRadioStation < 0) {
-            currentRadioStation = 9;
+        if (currentStation < minStation) {
+            currentStation = maxStation + currentStation;
         }
 
-        this.currentRadioStation = currentRadioStation;
+        this.currentStation = currentStation;
     }
 
     public int getCurrentVolume() {
@@ -39,20 +39,20 @@ public class Radio {
         this.currentVolume = currentVolume;
     }
 
-    public int getMinRadioStation() {
-        return minRadioStation;
+    public int getMinStation() {
+        return minStation;
     }
 
-    public void setMinRadioStation(int minRadioStation) {
-        this.minRadioStation = minRadioStation;
+    public void setMinStation(int minStation) {
+        this.minStation = minStation;
     }
 
-    public int getMaxRadioStation() {
-        return maxRadioStation;
+    public int getMaxStation() {
+        return maxStation;
     }
 
-    public void setMaxRadioStation(int maxRadioStation) {
-        this.maxRadioStation = maxRadioStation;
+    public void setMaxStation(int maxStation) {
+        this.maxStation = maxStation;
     }
 
     public int getMinVolume() {
@@ -85,16 +85,16 @@ public class Radio {
 
     }
 
-    public void nextRadioStation() {
+    public void nextStation() {
 
-        int nextStation = getCurrentRadioStation() + 1;
-        setCurrentRadioStation(nextStation);
+        int nextStation = getCurrentStation() + 1;
+        setCurrentStation(nextStation);
 
     }
 
-    public void prevRadioStation() {
+    public void prevStation() {
 
-        int prevStation = getCurrentRadioStation() - 1;
-        setCurrentRadioStation(prevStation);
+        int prevStation = getCurrentStation() - 1;
+        setCurrentStation(prevStation);
     }
 }
