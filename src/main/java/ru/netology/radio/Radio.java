@@ -73,17 +73,28 @@ public class Radio {
 
     public void increaseCurrentVolume() {
 
+        int incVolume = getCurrentVolume() + 1;
+        setCurrentVolume(incVolume);
+
     }
 
     public void decreaseCurrentVolume() {
+
+        int decVolume = getCurrentVolume() - 1;
+        setCurrentVolume(decVolume);
 
     }
 
     public void nextRadioStation() {
 
+        int nextStation = getCurrentRadioStation() + 1;
+        setCurrentRadioStation(nextStation);
+
     }
 
     public void prevRadioStation() {
 
+        int prevStation = getCurrentRadioStation() - 1;
+        setCurrentRadioStation(prevStation);
     }
 }
