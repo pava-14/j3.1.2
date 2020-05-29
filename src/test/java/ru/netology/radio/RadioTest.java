@@ -117,14 +117,11 @@ class RadioTest {
         if (expected < radio.getMinStation()) {
             expected += countStation;
         }
-        System.out.println(radio.getCurrentStation());
-        System.out.println(expected);
 
         // Нажимаем кнопку next countClick раз
         for (int i = 0; i < countClick; i++) {
             radio.prevStation();
-            System.out.println(radio.getCurrentStation());
-        }
+         }
 
         assertEquals(expected, radio.getCurrentStation());
 
