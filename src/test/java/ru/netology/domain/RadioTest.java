@@ -73,7 +73,7 @@ class RadioTest {
             // Выбираем случайную станцию
             selectRandomStation(radio);
         } else {
-            // Выбираем станцию 7
+            // Выбираем станцию 6
             radio.setCurrentStation(6);
         }
 
@@ -121,7 +121,7 @@ class RadioTest {
         // Нажимаем кнопку next countClick раз
         for (int i = 0; i < countClick; i++) {
             radio.prevStation();
-         }
+        }
 
         assertEquals(expected, radio.getCurrentStation());
 
