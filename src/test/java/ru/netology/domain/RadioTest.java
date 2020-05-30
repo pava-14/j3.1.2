@@ -1,4 +1,4 @@
-package ru.netology.radio;
+package ru.netology.domain;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
