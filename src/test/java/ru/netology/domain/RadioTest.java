@@ -1,130 +1,111 @@
 package ru.netology.domain;
 
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.CsvSource;
-
-import java.util.Random;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 class RadioTest {
+    @Test
+    void shouldInvalidMaxSetCurrentVolume() {
+        Radio radio = new Radio();
+        // Запомнить текущую громкость
+        int expected = radio.getCurrentVolume();
+        // Установить значение громкости больше максимальной
+        radio.setCurrentVolume(11);
+        // Проверить, что текущая громкость не изменилась
+        assertEquals(expected, radio.getCurrentVolume());
+    }
 
-    void selectRandomStation(Radio radio) {
+    @Test
+    void shouldInvalidMinSetCurrentVolume() {
+        Radio radio = new Radio();
+        // Запомнить текущую громкость
+        int expected = radio.getCurrentVolume();
+        // Установить значение громкости больше максимальной
+        radio.setCurrentVolume(-1);
+        // Проверить, что текущая громкость не изменилась
+        assertEquals(expected, radio.getCurrentVolume());
+    }
 
-        Random random = new Random();
-        // Выбираем случайную станцию из диапазона 0..10
-        radio.setCurrentStation(random.nextInt(10));
+    @Test
+    void shouldIncreaseCurrentVolume() {
+        Radio radio = new Radio();
+        // Установить текущую громкость
+        radio.setCurrentVolume(9);
+        // Нажимать кнопку увеличения громкости 2 раза
+        radio.increaseCurrentVolume();
+        radio.increaseCurrentVolume();
+        // Проверить, что громкость равна максимально возможной
+        assertEquals(radio.getMaxVolume(), radio.getCurrentVolume());
+    }
+
+    @Test
+    void shouldDecreaseCurrentVolume() {
+        Radio radio = new Radio();
+        // Установить текущую громкость
+        radio.setCurrentVolume(1);
+        // Нажимать кнопку уменьшения громкости 2 раза
+        radio.decreaseCurrentVolume();
+        radio.decreaseCurrentVolume();
+        // Проверить, что громкость равна минимально возможной
+        assertEquals(radio.getMinVolume(), radio.getCurrentVolume());
     }
 
     @Test
     void shouldSetCurrentStation() {
-
         Radio radio = new Radio();
-
-        Random random = new Random();
-
-        // Клиент должен иметь возможность выставлять номер
-        // радиостанции с цифрового пульта (вводя числа 0 - 9)
-        int expected = random.nextInt(10);
-
+        int expected = 5;
+        // Установить станцию 5
         radio.setCurrentStation(expected);
-
+        // Проверить, что станция 5 теперь текущая
         assertEquals(expected, radio.getCurrentStation());
-
     }
 
-    @ParameterizedTest
-    @CsvSource({"14"})
-    void shouldIncreaseCurrentVolume(int countClick) {
-
+    @Test
+    void shouldInvalidMinSetCurrentStation() {
         Radio radio = new Radio();
-
-        // Нажимаем кнопку увеличения громкости
-        for (int i = 0; i < countClick; i++) {
-            radio.increaseCurrentVolume();
-        }
-
-        assertEquals(radio.getMaxVolume(), radio.getCurrentVolume());
-    }
-
-    @ParameterizedTest
-    @CsvSource({"20"})
-    void shouldDecreaseCurrentVolume(int countClick) {
-
-        Radio radio = new Radio();
-
-        // Нажимаем 20 раз кнопку уменьшения громкости
-        for (int i = 0; i < countClick; i++) {
-            radio.decreaseCurrentVolume();
-        }
-
-        assertEquals(radio.getMinVolume(), radio.getCurrentVolume());
-    }
-
-    @ParameterizedTest
-    @CsvSource({"14,false"})
-        //Количество начатий на кнопу next
-    void shouldNextRadioStation(int countClick, boolean randomStartStation) {
-
-        Radio radio = new Radio();
-
-        if (randomStartStation) {
-            // Выбираем случайную станцию
-            selectRandomStation(radio);
-        } else {
-            // Выбираем станцию 6
-            radio.setCurrentStation(6);
-        }
-
-        int countStation = radio.getMaxStation() - radio.getMinStation();
-        countStation += 1; //zero based
-
-        // Вычисляем ожидаемый результат
-        int expected = countClick % countStation + radio.getCurrentStation();
-        if (expected >= countStation) {
-            expected = expected % countStation;
-        }
-
-        // Нажимаем кнопку next countClick раз
-        for (int i = 0; i < countClick; i++) {
-            radio.nextStation();
-        }
-
+        int expected = radio.getCurrentStation();
+        // Установить станцию меньше минимальной
+        radio.setCurrentStation(-1);
+        // Проверить, что текущая станция не изменилась
         assertEquals(expected, radio.getCurrentStation());
-
     }
 
-    @ParameterizedTest
-    @CsvSource({"14,false"})
-        //Количество начатий на кнопу next
-    void shouldPrevRadioStation(int countClick, boolean randomStartStation) {
+    @Test
+    void shouldInvalidMaxSetCurrentStation() {
         Radio radio = new Radio();
-
-        if (randomStartStation) {
-            // Выбираем случайную станцию
-            selectRandomStation(radio);
-        } else {
-            // Выбираем станцию 7
-            radio.setCurrentStation(7);
-        }
-
-        int countStation = radio.getMaxStation() - radio.getMinStation();
-        countStation += 1; //zero based
-
-        // Вычисляем ожидаемый результат
-        int expected = radio.getCurrentStation() - (countClick % countStation);
-        if (expected < radio.getMinStation()) {
-            expected += countStation;
-        }
-
-        // Нажимаем кнопку next countClick раз
-        for (int i = 0; i < countClick; i++) {
-            radio.prevStation();
-        }
-
+        int expected = radio.getCurrentStation();
+        // Установить станцию больше максимальной
+        radio.setCurrentStation(10);
+        // Проверить, что текущая станция не изменилась
         assertEquals(expected, radio.getCurrentStation());
-
     }
 
+    @Test
+    void shouldNextRadioStation() {
+        Radio radio = new Radio();
+        // Установить станцию 8
+        radio.setCurrentStation(8);
+        // Нажать 2 раза next
+        radio.nextStation();
+        radio.nextStation();
+        // Ожидаемый результат
+        int expected = 0;
+        // Проверить, что станция 0 теперь текущая
+        assertEquals(expected, radio.getCurrentStation());
+    }
+
+    @Test
+    void shouldPrevRadioStation() {
+        Radio radio = new Radio();
+        // Установить станцию 1
+        radio.setCurrentStation(1);
+        // Нажать 2 раза prev
+        radio.prevStation();
+        radio.prevStation();
+        // Ожидаемый результат
+        int expected = 9;
+        // Проверить, что станция 9 теперь текущая
+        assertEquals(expected, radio.getCurrentStation());
+    }
 }
