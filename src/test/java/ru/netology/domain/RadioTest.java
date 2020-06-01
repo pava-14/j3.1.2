@@ -7,7 +7,8 @@ import static org.junit.jupiter.api.Assertions.*;
 class RadioTest {
     @Test
     void shouldInvalidMaxSetCurrentVolume() {
-        Radio radio = new Radio();
+        Radio radio = new Radio(1, 2);
+        //int currentStation, int currentVolume, int minStation, int maxStation, int minVolume, int maxVolume
         // Запомнить текущую громкость
         int expected = radio.getCurrentVolume();
         // Установить значение громкости больше максимальной
@@ -18,7 +19,7 @@ class RadioTest {
 
     @Test
     void shouldInvalidMinSetCurrentVolume() {
-        Radio radio = new Radio();
+        Radio radio = new Radio(1, 2);
         // Запомнить текущую громкость
         int expected = radio.getCurrentVolume();
         // Установить значение громкости больше максимальной
@@ -29,7 +30,7 @@ class RadioTest {
 
     @Test
     void shouldIncreaseCurrentVolume() {
-        Radio radio = new Radio();
+        Radio radio = new Radio(1, 2, 0, 9, 0, 10);
         // Установить текущую громкость
         radio.setCurrentVolume(9);
         // Нажимать кнопку увеличения громкости 2 раза
@@ -41,7 +42,7 @@ class RadioTest {
 
     @Test
     void shouldDecreaseCurrentVolume() {
-        Radio radio = new Radio();
+        Radio radio = new Radio(1, 2, 0, 9, 0, 10);
         // Установить текущую громкость
         radio.setCurrentVolume(1);
         // Нажимать кнопку уменьшения громкости 2 раза
@@ -53,7 +54,7 @@ class RadioTest {
 
     @Test
     void shouldSetCurrentStation() {
-        Radio radio = new Radio();
+        Radio radio = new Radio(1, 2, 0, 9, 0, 10);
         int expected = 5;
         // Установить станцию 5
         radio.setCurrentStation(expected);
@@ -63,7 +64,7 @@ class RadioTest {
 
     @Test
     void shouldInvalidMinSetCurrentStation() {
-        Radio radio = new Radio();
+        Radio radio = new Radio(1, 2);
         int expected = radio.getCurrentStation();
         // Установить станцию меньше минимальной
         radio.setCurrentStation(-1);
@@ -73,7 +74,7 @@ class RadioTest {
 
     @Test
     void shouldInvalidMaxSetCurrentStation() {
-        Radio radio = new Radio();
+        Radio radio = new Radio(1, 2);
         int expected = radio.getCurrentStation();
         // Установить станцию больше максимальной
         radio.setCurrentStation(10);
@@ -83,7 +84,7 @@ class RadioTest {
 
     @Test
     void shouldNextRadioStation() {
-        Radio radio = new Radio();
+        Radio radio = new Radio(1, 2, 0, 9, 0, 10);
         // Установить станцию 8
         radio.setCurrentStation(8);
         // Нажать 2 раза next
@@ -97,7 +98,7 @@ class RadioTest {
 
     @Test
     void shouldPrevRadioStation() {
-        Radio radio = new Radio();
+        Radio radio = new Radio(1, 2, 0, 9, 0, 10);
         // Установить станцию 1
         radio.setCurrentStation(1);
         // Нажать 2 раза prev
